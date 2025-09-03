@@ -1,0 +1,48 @@
+# GitLab CI/CD Pipeline for Free Space Technologies
+image: node:18
+
+variables:
+  NODE_ENV: production
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - deploy
+
+# Build stage
+build:
+  stage: build
+  script:
+    - echo "Installing dependencies..."
+    - npm ci
+    - echo "Building the project..."
+    - npm run build
+    - echo "Build completed successfully!"
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+  only:
+    - master
+    - main
+
+# Deploy to GitLab Pages
+pages:
+  stage: deploy
+  script:
+    - echo "Preparing deployment to GitLab Pages..."
+    - mkdir public
+    - cp -r dist/* public/
+    - echo "Deployment files prepared!"
+    - ls -la public/
+  artifacts:
+    paths:
+      - public
+  dependencies:
+    - build
+  only:
+    - master
+    - main
