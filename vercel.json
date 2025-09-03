@@ -1,26 +1,9 @@
 {
-  "version": 2,
-  "name": "free-space-technologies",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/.*",
-      "dest": "/index.html"
-    }
-  ],
-  "functions": {},
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "vite",
   "rewrites": [
     {
       "source": "/((?!api/.*).*)",
