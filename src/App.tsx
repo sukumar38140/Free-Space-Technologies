@@ -16,6 +16,7 @@ import About from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Admin from "./pages/Admin";
+import AdminTest from "./pages/AdminTest";
 import LearnMore from "./pages/LearnMore";
 import NotFound from "./pages/NotFound";
 
@@ -51,6 +52,7 @@ const App = () => (
                   <Route path="/terms-of-service" element={<TermsOfService />} />
                   <Route path="/admin" element={<Admin />} />
                   <Route path="/myadminpage" element={<Admin />} />
+                  <Route path="/admin-test" element={<AdminTest />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

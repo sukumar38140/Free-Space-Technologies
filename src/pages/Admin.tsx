@@ -36,16 +36,23 @@ const Admin = () => {
   });
 
   useEffect(() => {
+    console.log('Admin component - Authentication state changed:', { isAuthenticated, currentUser });
     if (isAuthenticated) {
       loadJobs();
       loadLearnMoreContent();
     }
   }, [isAuthenticated]);
 
+  // Debug authentication state
+  console.log('Admin component render - isAuthenticated:', isAuthenticated, 'currentUser:', currentUser);
+
   // If not authenticated, show login form
   if (!isAuthenticated) {
+    console.log('Showing admin login form');
     return <AdminLogin />;
   }
+
+  console.log('Showing admin dashboard');
 
   const loadJobs = () => {
     const savedJobs = localStorage.getItem('careerPosts');

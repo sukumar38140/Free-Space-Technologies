@@ -30,9 +30,9 @@ const AdminLogin = () => {
         setError('Invalid username or password');
         console.error('Login failed: Invalid credentials');
       } else {
-        console.log('Login successful, redirecting to admin panel');
-        // Use React Router navigation instead of window.location
-        navigate('/myadminpage');
+        console.log('Login successful, admin state should be updated');
+        // The Admin component should automatically re-render due to authentication state change
+        // No manual navigation needed as the component will show the dashboard
       }
     } catch (err) {
       console.error('Login error:', err);
