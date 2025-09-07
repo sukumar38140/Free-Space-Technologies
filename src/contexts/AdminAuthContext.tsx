@@ -66,15 +66,22 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, []);
 
   const login = async (username: string, password: string): Promise<boolean> => {
+    console.log('Login attempt:', { username, passwordLength: password.length });
+    
     if (BYPASS_ADMIN) {
+      console.log('Admin bypass enabled, logging in with dummy admin');
       setCurrentUser(DUMMY_ADMIN);
       localStorage.setItem('adminUser', JSON.stringify(DUMMY_ADMIN));
       return true;
     }
+    
+    console.log('Checking credentials against admin accounts...');
     const account = ADMIN_ACCOUNTS.find(
       acc => acc.username === username && acc.password === password
     );
 
+    console.log('Found account:', !!account);
+    
     if (account) {
       const user: AdminUser = {
         id: account.id,
@@ -82,10 +89,13 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         role: account.role,
         email: account.email
       };
+      console.log('Setting current user:', user);
       setCurrentUser(user);
       localStorage.setItem('adminUser', JSON.stringify(user));
       return true;
     }
+    
+    console.log('Login failed: No matching account found');
     return false;
   };
 

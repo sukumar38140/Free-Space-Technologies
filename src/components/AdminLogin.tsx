@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useAdminAuth } from '../contexts/AdminAuthContext';
 
 const AdminLogin = () => {
@@ -8,6 +9,7 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAdminAuth();
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({
@@ -22,14 +24,18 @@ const AdminLogin = () => {
     setError('');
 
     try {
+      console.log('Attempting login with:', credentials.username);
       const success = await login(credentials.username, credentials.password);
       if (!success) {
         setError('Invalid username or password');
+        console.error('Login failed: Invalid credentials');
       } else {
-        // Redirect to admin page after successful login
-        window.location.href = '/myadminpage';
+        console.log('Login successful, redirecting to admin panel');
+        // Use React Router navigation instead of window.location
+        navigate('/myadminpage');
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('Login failed. Please try again.');
     } finally {
       setLoading(false);
